@@ -192,15 +192,10 @@
     -webkit-text-stroke: 1px rgba(232,237,245,0.3);
   }
 
-  .hero-name .accent-word {
-    color: var(--accent);
-    position: relative;
-  }
-
   .hero-desc {
     font-size: 1.05rem;
     color: var(--text2);
-    max-width: 520px;
+    max-width: 560px;
     line-height: 1.8;
     margin-bottom: 3rem;
     border-left: 2px solid var(--border2);
@@ -442,7 +437,7 @@
 
   .skills-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 1px;
     background: var(--border);
     border: 1px solid var(--border);
@@ -493,6 +488,16 @@
     background: rgba(0,255,136,0.14);
     border-color: var(--border2);
     color: var(--accent);
+  }
+
+  .pill.cert {
+    background: rgba(255,165,2,0.06);
+    border-color: rgba(255,165,2,0.25);
+    color: var(--warn);
+  }
+
+  .pill.cert:hover {
+    background: rgba(255,165,2,0.14);
   }
 
   /* ── Experience ── */
@@ -651,6 +656,13 @@
     letter-spacing: 0.15em;
   }
 
+  .project-date {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    color: var(--text3);
+    letter-spacing: 0.1em;
+  }
+
   .project-title {
     font-family: var(--display);
     font-size: 1.2rem;
@@ -683,36 +695,13 @@
     color: var(--accent2);
   }
 
-  /* ── Research & Education ── */
-  #research {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 7rem 3rem;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 5rem;
-    align-items: start;
-  }
-
+  /* ── Research ── */
   .research-card {
     background: var(--surface);
     border: 1px solid var(--border);
     padding: 2.5rem;
     position: relative;
     overflow: hidden;
-  }
-
-  .research-card::before {
-    content: 'IEEE';
-    position: absolute;
-    top: -0.5rem;
-    right: 1.5rem;
-    font-family: var(--mono);
-    font-size: 4rem;
-    font-weight: 800;
-    color: rgba(0,255,136,0.04);
-    letter-spacing: -0.05em;
-    pointer-events: none;
   }
 
   .research-badge {
@@ -740,53 +729,6 @@
     font-size: 0.88rem;
     color: var(--text2);
     line-height: 1.8;
-  }
-
-  .edu-list { display: flex; flex-direction: column; gap: 2rem; }
-
-  .edu-item {
-    border-left: 2px solid var(--border);
-    padding: 0 0 0 1.5rem;
-    position: relative;
-  }
-
-  .edu-item::before {
-    content: '';
-    position: absolute;
-    left: -5px;
-    top: 4px;
-    width: 8px;
-    height: 8px;
-    background: var(--accent);
-    border-radius: 50%;
-  }
-
-  .edu-degree {
-    font-family: var(--display);
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--text);
-    margin-bottom: 0.25rem;
-  }
-
-  .edu-school {
-    font-family: var(--mono);
-    font-size: 0.72rem;
-    color: var(--accent2);
-    letter-spacing: 0.08em;
-    margin-bottom: 0.5rem;
-    text-transform: uppercase;
-  }
-
-  .edu-meta {
-    font-family: var(--mono);
-    font-size: 0.68rem;
-    color: var(--text3);
-    letter-spacing: 0.1em;
-  }
-
-  .edu-gpa {
-    color: var(--warn);
   }
 
   /* ── Contact ── */
@@ -930,6 +872,12 @@
   .fade-up-delay-3 { transition-delay: 0.3s; }
   .fade-up-delay-4 { transition-delay: 0.4s; }
 
+  @media (prefers-reduced-motion: reduce) {
+    .fade-up { opacity: 1; transform: none; transition: none; }
+    .ticker { animation: none; }
+    .status-dot { animation: none; }
+  }
+
   /* ── Cursor glow ── */
   .cursor-glow {
     position: fixed;
@@ -950,15 +898,18 @@
     #hero { padding: 7rem 1.5rem 4rem; }
     #about { grid-template-columns: 1fr; gap: 3rem; padding: 5rem 1.5rem; }
     #skills { padding: 5rem 1.5rem; }
-    .skills-grid { grid-template-columns: repeat(2, 1fr); }
+    .skills-grid { grid-template-columns: 1fr; }
     #experience { padding: 5rem 1.5rem; }
     .projects-grid { grid-template-columns: 1fr; }
     #projects { padding: 5rem 1.5rem; }
-    #research { grid-template-columns: 1fr; gap: 3rem; padding: 5rem 1.5rem; }
     #contact { padding: 5rem 1.5rem; }
     footer { padding: 1.5rem; }
     .hero-metrics { gap: 2rem; flex-wrap: wrap; }
     .skills-header { flex-direction: column; gap: 1rem; align-items: flex-start; }
+  }
+
+  @media (min-width: 901px) and (max-width: 1100px) {
+    .skills-grid { grid-template-columns: repeat(2, 1fr); }
   }
 </style>
 </head>
@@ -974,6 +925,7 @@
     <li><a href="#skills">Skills</a></li>
     <li><a href="#experience">Experience</a></li>
     <li><a href="#projects">Projects</a></li>
+    <li><a href="#research">Research</a></li>
     <li><a href="#education">Education</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
@@ -982,33 +934,15 @@
 
 <!-- Hero -->
 <section id="hero">
-  <div class="hero-tag fade-up">Cybersecurity Professional</div>
+  <div class="hero-tag fade-up">Cybersecurity · SOC & Threat Detection</div>
   <h1 class="hero-name fade-up fade-up-delay-1">
     Abhiram<br>
     <span class="line2">Challaram</span>
   </h1>
   <p class="hero-desc fade-up fade-up-delay-2">
-    Application Security specialist skilled in web vulnerability assessment, IoT threat modeling, and ML-based anomaly detection. Active CTF participant and IEEE-published researcher.
+    Cybersecurity professional with 1+ years of hands-on experience in security monitoring, threat detection, incident response, and vulnerability research. Proficient in Splunk, Wireshark, MITRE ATT&CK, and Python-based security automation — backed by real-world lab work, active CTF participation, and peer-reviewed IEEE research.
   </p>
-  <div class="hero-metrics fade-up fade-up-delay-3">
-    <div class="metric">
-      <span class="metric-num">40<span>%</span></span>
-      <span class="metric-label">Attack Surface Reduced</span>
-    </div>
-    <div class="metric">
-      <span class="metric-num">92<span>%</span></span>
-      <span class="metric-label">Threat Detection Rate</span>
-    </div>
-    <div class="metric">
-      <span class="metric-num">10<span>+</span></span>
-      <span class="metric-label">Threats Remediated</span>
-    </div>
-    <div class="metric">
-      <span class="metric-num">3.80</span>
-      <span class="metric-label">Current GPA</span>
-    </div>
-  </div>
-  <div class="hero-actions fade-up fade-up-delay-4">
+  <div class="hero-actions fade-up fade-up-delay-3">
     <a href="mailto:abhiramchallaram02@gmail.com" class="btn-primary">GET IN TOUCH</a>
     <a href="#projects" class="btn-secondary">View Projects</a>
   </div>
@@ -1017,24 +951,24 @@
 <!-- Ticker -->
 <div class="ticker-wrap">
   <div class="ticker">
-    <span class="ticker-item"><span class="dot">◆</span>OWASP Top 10</span>
-    <span class="ticker-item"><span class="dot">◆</span>Penetration Testing</span>
-    <span class="ticker-item"><span class="dot">◆</span>IoT Security</span>
-    <span class="ticker-item"><span class="dot">◆</span>Vulnerability Research</span>
+    <span class="ticker-item"><span class="dot">◆</span>SIEM Detection Engineering</span>
+    <span class="ticker-item"><span class="dot">◆</span>Splunk</span>
+    <span class="ticker-item"><span class="dot">◆</span>Threat Hunting</span>
     <span class="ticker-item"><span class="dot">◆</span>MITRE ATT&CK</span>
-    <span class="ticker-item"><span class="dot">◆</span>ML Anomaly Detection</span>
-    <span class="ticker-item"><span class="dot">◆</span>API Security</span>
-    <span class="ticker-item"><span class="dot">◆</span>HIPAA Compliance</span>
+    <span class="ticker-item"><span class="dot">◆</span>Phishing Forensics</span>
+    <span class="ticker-item"><span class="dot">◆</span>OWASP Top 10</span>
+    <span class="ticker-item"><span class="dot">◆</span>IoT Security</span>
+    <span class="ticker-item"><span class="dot">◆</span>AI Threat Intelligence</span>
     <span class="ticker-item"><span class="dot">◆</span>CTF Participant</span>
     <span class="ticker-item"><span class="dot">◆</span>IEEE Published</span>
-    <span class="ticker-item"><span class="dot">◆</span>OWASP Top 10</span>
-    <span class="ticker-item"><span class="dot">◆</span>Penetration Testing</span>
-    <span class="ticker-item"><span class="dot">◆</span>IoT Security</span>
-    <span class="ticker-item"><span class="dot">◆</span>Vulnerability Research</span>
+    <span class="ticker-item"><span class="dot">◆</span>SIEM Detection Engineering</span>
+    <span class="ticker-item"><span class="dot">◆</span>Splunk</span>
+    <span class="ticker-item"><span class="dot">◆</span>Threat Hunting</span>
     <span class="ticker-item"><span class="dot">◆</span>MITRE ATT&CK</span>
-    <span class="ticker-item"><span class="dot">◆</span>ML Anomaly Detection</span>
-    <span class="ticker-item"><span class="dot">◆</span>API Security</span>
-    <span class="ticker-item"><span class="dot">◆</span>HIPAA Compliance</span>
+    <span class="ticker-item"><span class="dot">◆</span>Phishing Forensics</span>
+    <span class="ticker-item"><span class="dot">◆</span>OWASP Top 10</span>
+    <span class="ticker-item"><span class="dot">◆</span>IoT Security</span>
+    <span class="ticker-item"><span class="dot">◆</span>AI Threat Intelligence</span>
     <span class="ticker-item"><span class="dot">◆</span>CTF Participant</span>
     <span class="ticker-item"><span class="dot">◆</span>IEEE Published</span>
   </div>
@@ -1048,9 +982,9 @@
       Breaking systems<br>to <em>build</em> better ones
     </h2>
     <div class="fade-up fade-up-delay-2">
-      <p>I'm a results-driven cybersecurity professional currently pursuing my M.S. in Cybersecurity at the University of Central Missouri, where I maintain a 3.80 GPA while working as an Application Security Intern.</p>
-      <p>My work spans the full spectrum of offensive and defensive security — from reverse-engineering Mirai botnet C2 architecture to engineering HIPAA-compliant BCP/DRP frameworks for healthcare environments.</p>
-      <p>I thrive at the intersection of research and real-world application, translating complex vulnerability findings into actionable hardening playbooks that sysadmin and security teams can actually use.</p>
+      <p>I'm a results-driven cybersecurity professional who completed my M.S. in Cybersecurity at the University of Central Missouri with a 3.80 GPA, with hands-on experience spanning security monitoring, log analysis, network forensics, and SIEM operations.</p>
+      <p>My work covers both offensive and defensive security — from reverse-engineering Mirai botnet C2 architecture and threat hunting with MITRE ATT&CK, to building a home SOC lab with Splunk detection rules and engineering AI-powered threat intelligence automation with the Claude API.</p>
+      <p>I'm passionate about building detection capabilities, hunting adversary behavior, and contributing to a high-performing SOC team where curiosity and precision drive results. I'm actively building a hands-on SOC portfolio spanning SIEM detection engineering, phishing forensics, threat hunting, and AI-powered threat intelligence automation.</p>
     </div>
   </div>
   <div class="about-right">
@@ -1059,8 +993,8 @@
       <div class="stat-desc">IoT Sensor Systems Hardened @ Kirkwall</div>
     </div>
     <div class="stat-card warn fade-up fade-up-delay-1">
-      <div class="stat-num">35<span>%</span></div>
-      <div class="stat-desc">Reduction in Unplanned Downtime Risk</div>
+      <div class="stat-num">15<span>+</span></div>
+      <div class="stat-desc">IOCs Extracted & Validated in Phishing Forensics</div>
     </div>
     <div class="stat-card danger fade-up fade-up-delay-2">
       <div class="stat-num">100<span>K+</span></div>
@@ -1085,7 +1019,7 @@
     <div class="skills-grid">
       <div class="skill-cat fade-up">
         <span class="skill-cat-icon">🛡</span>
-        <div class="skill-cat-title">Security & Exploitation</div>
+        <div class="skill-cat-title">Security Testing & Exploitation</div>
         <div class="skill-pills">
           <span class="pill">Burp Suite</span>
           <span class="pill">OWASP ZAP</span>
@@ -1096,21 +1030,25 @@
           <span class="pill">Netcat</span>
           <span class="pill">Tcpdump</span>
           <span class="pill">Splunk</span>
+          <span class="pill">Microsoft Sentinel</span>
+          <span class="pill">Elastic SIEM</span>
         </div>
       </div>
       <div class="skill-cat fade-up fade-up-delay-1">
         <span class="skill-cat-icon">⚡</span>
-        <div class="skill-cat-title">Scripting & Dev</div>
+        <div class="skill-cat-title">Scripting & Development</div>
         <div class="skill-pills">
           <span class="pill">Python</span>
+          <span class="pill">MySQL</span>
           <span class="pill">Bash</span>
           <span class="pill">PowerShell</span>
           <span class="pill">JavaScript</span>
-          <span class="pill">Docker</span>
           <span class="pill">Git</span>
+          <span class="pill">Docker</span>
           <span class="pill">Postman</span>
-          <span class="pill">Fiddler</span>
+          <span class="pill">Insomnia</span>
           <span class="pill">curl</span>
+          <span class="pill">Fiddler</span>
         </div>
       </div>
       <div class="skill-cat fade-up fade-up-delay-2">
@@ -1125,18 +1063,43 @@
           <span class="pill">GitLab</span>
         </div>
       </div>
-      <div class="skill-cat fade-up fade-up-delay-3">
+      <div class="skill-cat fade-up fade-up-delay-1">
         <span class="skill-cat-icon">📋</span>
-        <div class="skill-cat-title">Frameworks</div>
+        <div class="skill-cat-title">Frameworks & Standards</div>
         <div class="skill-pills">
           <span class="pill">OWASP Top 10</span>
-          <span class="pill">MITRE ATT&CK</span>
-          <span class="pill">NIST</span>
-          <span class="pill">HIPAA</span>
           <span class="pill">CVSS</span>
           <span class="pill">CVE</span>
           <span class="pill">CWE</span>
+          <span class="pill">MITRE ATT&CK</span>
           <span class="pill">PTES</span>
+          <span class="pill">NIST</span>
+          <span class="pill">HIPAA</span>
+        </div>
+      </div>
+      <div class="skill-cat fade-up fade-up-delay-2">
+        <span class="skill-cat-icon">🧠</span>
+        <div class="skill-cat-title">Libraries & AI/ML</div>
+        <div class="skill-pills">
+          <span class="pill">LangChain</span>
+          <span class="pill">LlamaIndex</span>
+          <span class="pill">LiteLLM</span>
+          <span class="pill">scikit-learn</span>
+          <span class="pill">PyTorch</span>
+          <span class="pill">TensorFlow</span>
+          <span class="pill">Matplotlib</span>
+          <span class="pill">OpenAI SDK</span>
+        </div>
+      </div>
+      <div class="skill-cat fade-up fade-up-delay-3">
+        <span class="skill-cat-icon">🎓</span>
+        <div class="skill-cat-title">Certifications</div>
+        <div class="skill-pills">
+          <span class="pill cert">Google Cybersecurity Professional</span>
+          <span class="pill cert">AWS Fundamentals</span>
+          <span class="pill cert">AWS Certified Security – Specialty</span>
+          <span class="pill cert">ISC2 CCSP</span>
+          <span class="pill cert">CompTIA Security+</span>
         </div>
       </div>
     </div>
@@ -1151,7 +1114,7 @@
     <div class="exp-item fade-up">
       <div class="exp-meta">
         <div class="exp-company">Kirkwall Defense Inc.</div>
-        <div class="exp-date">JAN 2026 – PRESENT</div>
+        <div class="exp-date">JAN 2026 – MAY 2026</div>
       </div>
       <div class="exp-role">Application Security Intern · Sioux Falls, SD</div>
       <ul class="exp-bullets">
@@ -1168,7 +1131,7 @@
       </div>
       <div class="exp-role">Frontend SDE Intern · Bangalore</div>
       <ul class="exp-bullets">
-        <li>Implemented secure coding practices and input validation across React Native and ReactJS components serving <span class="highlight">100,000+ users</span>, mitigating injection and authentication vulnerabilities.</li>
+        <li>Implemented secure coding practices and input validation across React Native and ReactJS components serving <span class="highlight">100,000+ users</span>, mitigating injection and authentication vulnerabilities in client-side application logic.</li>
         <li>Architected a reusable component library that reduced UI development time by an estimated <span class="highlight">30%</span>, enabling faster feature delivery across two product teams.</li>
         <li>Led sprint coordination and task prioritization for a sub-team, ensuring on-time delivery of all assigned milestones across a 6-month engagement.</li>
       </ul>
@@ -1182,21 +1145,63 @@
     <div class="section-label fade-up">Work</div>
     <h2 class="section-title fade-up fade-up-delay-1">Featured <em>Projects</em></h2>
     <div class="projects-grid">
+
       <div class="project-card fade-up">
-        <div class="project-num">01 / RESEARCH</div>
-        <div class="project-title">Mirai Botnet Analysis & IoT Security Vulnerability Research</div>
-        <div class="project-desc">Reverse-engineered Mirai's infection chain and C2 architecture. Produced a defensive playbook with 10+ actionable mitigations cited in academic and professional peer discussions. Identified critical weaknesses in default credential management and telnet exposure patterns.</div>
+        <div class="project-num">01 / AI × SECURITY <span class="project-date">· AUG 2025 – MAY 2026</span></div>
+        <div class="project-title">AI-Powered Threat Intelligence Summarizer</div>
+        <div class="project-desc">Engineered a Python-based threat intelligence automation tool using the Claude API that converts raw CVE descriptions, malware reports, and IOC lists into structured, analyst-ready security briefs. Designed 3 domain-specific prompt templates producing risk summaries, MITRE ATT&CK technique mappings, and SIEM-ready detection queries. Integrated NVD API feeds for real-time ingestion of newly published CVEs, with full architecture and prompt engineering decisions documented in a public GitHub repository.</div>
         <div class="project-tags">
-          <span class="project-tag">IoT Security</span>
-          <span class="project-tag">Reverse Engineering</span>
-          <span class="project-tag">C2 Architecture</span>
-          <span class="project-tag">Threat Modeling</span>
+          <span class="project-tag">Python</span>
+          <span class="project-tag">Claude API</span>
+          <span class="project-tag">NVD API</span>
+          <span class="project-tag">Threat Intel</span>
+          <span class="project-tag">Prompt Engineering</span>
         </div>
       </div>
+
       <div class="project-card fade-up fade-up-delay-1">
-        <div class="project-num">02 / COMPLIANCE</div>
+        <div class="project-num">02 / DETECTION ENGINEERING <span class="project-date">· AUG 2025 – MAY 2026</span></div>
+        <div class="project-title">Home SOC Lab with Splunk</div>
+        <div class="project-desc">Designed and deployed a home SOC environment using Splunk on Ubuntu VMs, configuring log ingestion pipelines from authentication, system, and network sources. Authored 3 custom SPL detection rules targeting brute force logins, port scans, and unauthorized privilege escalation. Simulated attacks from Kali Linux — SSH brute force and Nmap reconnaissance — detecting each event through self-built alert logic, with all threats mapped to MITRE ATT&CK techniques.</div>
+        <div class="project-tags">
+          <span class="project-tag">Splunk</span>
+          <span class="project-tag">SPL</span>
+          <span class="project-tag">Ubuntu VMs</span>
+          <span class="project-tag">Kali Linux</span>
+          <span class="project-tag">MITRE ATT&CK</span>
+        </div>
+      </div>
+
+      <div class="project-card fade-up fade-up-delay-2">
+        <div class="project-num">03 / FORENSICS <span class="project-date">· JAN 2025 – MAY 2025</span></div>
+        <div class="project-title">Phishing Email Analysis & Threat Report</div>
+        <div class="project-desc">Performed forensic analysis on 3 real-world phishing samples, dissecting headers to identify SPF/DMARC failures, IP spoofing, and suspicious mail relay hops. Extracted and validated 15+ IOCs using VirusTotal, AbuseIPDB, and URLScan. Produced 3 professional SOC-standard threat reports with executive summaries, IOC tables, risk classification, and remediation steps — plus a master IOC CSV formatted for direct import into SIEM block lists.</div>
+        <div class="project-tags">
+          <span class="project-tag">Email Forensics</span>
+          <span class="project-tag">VirusTotal</span>
+          <span class="project-tag">AbuseIPDB</span>
+          <span class="project-tag">URLScan</span>
+          <span class="project-tag">IOC Analysis</span>
+        </div>
+      </div>
+
+      <div class="project-card fade-up fade-up-delay-3">
+        <div class="project-num">04 / THREAT HUNTING <span class="project-date">· JAN 2025 – MAY 2025</span></div>
+        <div class="project-title">Threat Hunting with MITRE ATT&CK</div>
+        <div class="project-desc">Conducted a structured threat hunt on Mirai Botnet behavior, mapping the full infection lifecycle to 5 MITRE ATT&CK techniques across Initial Access, Execution, Persistence, C2, and Impact. Developed 3 formal detection hypotheses following professional threat hunt methodology, and translated botnet infection chain analysis into Splunk-compatible detection logic targeting default credential abuse over Telnet and anomalous outbound connection bursts from IoT devices.</div>
+        <div class="project-tags">
+          <span class="project-tag">Threat Hunting</span>
+          <span class="project-tag">MITRE ATT&CK</span>
+          <span class="project-tag">Splunk</span>
+          <span class="project-tag">IoT</span>
+          <span class="project-tag">Mirai</span>
+        </div>
+      </div>
+
+      <div class="project-card fade-up fade-up-delay-2">
+        <div class="project-num">05 / COMPLIANCE <span class="project-date">· JAN 2025 – MAY 2025</span></div>
         <div class="project-title">BCP/DRP Development for Ransomware Response in Healthcare</div>
-        <div class="project-desc">Engineered a HIPAA-compliant Business Continuity and Disaster Recovery plan for a hospital environment, covering RTO/RPO targets, system prioritization, and encrypted backup strategies. Applied the PICERL framework for a ransomware lifecycle playbook.</div>
+        <div class="project-desc">Engineered a HIPAA-compliant Business Continuity and Disaster Recovery plan for a hospital environment, covering RTO/RPO targets, system prioritization, and encrypted backup strategies. Applied the PICERL framework to structure a ransomware lifecycle playbook, then validated the plan against real-world ransomware incident timelines — identifying 3 critical gaps in backup restoration procedures and refining escalation protocols accordingly.</div>
         <div class="project-tags">
           <span class="project-tag">HIPAA</span>
           <span class="project-tag">BCP/DRP</span>
@@ -1204,10 +1209,11 @@
           <span class="project-tag">Ransomware</span>
         </div>
       </div>
-      <div class="project-card fade-up fade-up-delay-2">
-        <div class="project-num">03 / EXPLOITATION</div>
+
+      <div class="project-card fade-up fade-up-delay-3">
+        <div class="project-num">06 / EXPLOITATION <span class="project-date">· JAN 2025 – MAY 2025</span></div>
         <div class="project-title">Linux Privilege Escalation & Exploit Analysis</div>
-        <div class="project-desc">Identified and exploited 6 SUID/SGID misconfigurations mapped to CWE-269, demonstrating privilege escalation on hardened Linux environments. Produced a remediation guide applying least-privilege principles directly usable by sysadmin teams.</div>
+        <div class="project-desc">Identified and exploited 6 SUID/SGID misconfigurations mapped to CWE-269, demonstrating privilege escalation on hardened Linux environments. Produced a remediation guide applying least-privilege principles and permission hardening, directly usable by sysadmin teams to close high-risk attack paths.</div>
         <div class="project-tags">
           <span class="project-tag">Linux</span>
           <span class="project-tag">CWE-269</span>
@@ -1215,17 +1221,7 @@
           <span class="project-tag">Exploit Dev</span>
         </div>
       </div>
-      <div class="project-card fade-up fade-up-delay-3">
-        <div class="project-num">04 / PUBLICATION</div>
-        <div class="project-title">Cybersecurity in AR/VR Environments — IEEE Published</div>
-        <div class="project-desc">Co-authored peer-reviewed research published in IEEE, analyzing 8+ threat vectors across AR/VR platforms. Proposed AI/ML-driven defense mechanisms for next-generation immersive environments.</div>
-        <div class="project-tags">
-          <span class="project-tag">IEEE</span>
-          <span class="project-tag">AR/VR Security</span>
-          <span class="project-tag">AI/ML Defense</span>
-          <span class="project-tag">Research</span>
-        </div>
-      </div>
+
     </div>
   </div>
 </section>
@@ -1233,12 +1229,19 @@
 <!-- Research -->
 <section id="research" style="padding: 7rem 3rem; background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); position: relative; z-index: 1;">
   <div style="max-width: 1200px; margin: 0 auto;">
-    <div class="section-label fade-up">Published</div>
-    <h2 class="section-title fade-up fade-up-delay-1">IEEE <em>Research</em></h2>
-    <div class="research-card fade-up fade-up-delay-2" style="margin-top:2.5rem; max-width: 780px;">
-      <div class="research-badge">IEEE · Nov 2025</div>
-      <div class="research-title">Cybersecurity in AR/VR Environments: AI/ML-Driven Defense Mechanisms</div>
-      <div class="research-desc">Co-authored peer-reviewed research analyzing 8+ threat vectors unique to AR/VR platforms — including spatial manipulation, data exfiltration through immersive interfaces, and identity spoofing — and proposing novel AI/ML-driven countermeasures for next-generation immersive systems.</div>
+    <div class="section-label fade-up">Published & Analyzed</div>
+    <h2 class="section-title fade-up fade-up-delay-1">Research & <em>Analysis</em></h2>
+    <div style="margin-top:2.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;" class="research-grid">
+      <div class="research-card fade-up fade-up-delay-2">
+        <div class="research-badge">IEEE · Nov 2025</div>
+        <div class="research-title">Cybersecurity in AR/VR Environments: AI/ML-Driven Defense Mechanisms</div>
+        <div class="research-desc">Co-authored peer-reviewed research published in IEEE, analyzing 8+ threat vectors across AR/VR platforms and proposing AI/ML-driven defense mechanisms for next-generation immersive environments. The work contributes original research on AI/ML defensive architectures, positioned at the intersection of emerging technology security and applied machine learning.</div>
+      </div>
+      <div class="research-card fade-up fade-up-delay-3">
+        <div class="research-badge">Research · Aug 2024 – May 2025</div>
+        <div class="research-title">Mirai Botnet Analysis & IoT Security Vulnerability Research</div>
+        <div class="research-desc">Reverse-engineered Mirai's infection chain and C2 architecture, producing a defensive playbook with 10+ actionable mitigations cited in academic and professional peer discussions. Identified critical weaknesses in default credential management and telnet exposure patterns, and mapped the complete attack lifecycle to MITRE ATT&CK techniques across Initial Access, Execution, and Impact — producing a structured threat profile reusable by teams defending IoT-heavy networks.</div>
+      </div>
     </div>
   </div>
 </section>
@@ -1248,7 +1251,7 @@
   <div style="max-width: 1200px; margin: 0 auto;">
     <div class="section-label fade-up">Academic Background</div>
     <h2 class="section-title fade-up fade-up-delay-1">My <em>Education</em></h2>
-    <div style="margin-top: 3.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+    <div style="margin-top: 3.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;" class="edu-grid">
 
       <!-- UCM -->
       <div class="stat-card fade-up" style="padding: 2.5rem; position: relative; overflow: hidden;">
@@ -1303,14 +1306,17 @@
       Ready to <em>secure</em><br>your systems?
     </h2>
     <p class="contact-sub fade-up fade-up-delay-2">
-      Open to Application Security, Penetration Testing, and Security Engineering roles. Let's connect and talk about how I can help protect what matters.
+      Open to SOC Analyst, Threat Detection, Application Security, and Security Engineering roles. Let's connect and talk about how I can help protect what matters.
     </p>
     <div class="contact-links fade-up fade-up-delay-3">
       <a href="mailto:abhiramchallaram02@gmail.com" class="contact-link primary">
         ✉ abhiramchallaram02@gmail.com
       </a>
-      <a href="https://www.linkedin.com/in/abhiram-challaram" target="_blank" class="contact-link">
+      <a href="https://www.linkedin.com/in/abhiram-challaram" target="_blank" rel="noopener" class="contact-link">
         ⟶ LinkedIn
+      </a>
+      <a href="https://abhiramchallaram.github.io" target="_blank" rel="noopener" class="contact-link">
+        ⌂ abhiramchallaram.github.io
       </a>
       <a href="tel:+917075204648" class="contact-link">
         ✆ +91 70752 04648
@@ -1321,7 +1327,7 @@
 
 <!-- Footer -->
 <footer>
-  <span class="footer-copy">© 2025 Abhiram Challaram · Hyderabad, India</span>
+  <span class="footer-copy">© 2026 Abhiram Challaram · Hyderabad, India</span>
   <span class="footer-status">
     <span class="status-dot"></span>
     Available for opportunities
@@ -1349,6 +1355,16 @@
   document.querySelectorAll('#hero .fade-up').forEach(el => {
     setTimeout(() => el.classList.add('visible'), 100);
   });
+
+  // Stack research/education grids on mobile
+  const mq = window.matchMedia('(max-width: 900px)');
+  const applyStack = () => {
+    document.querySelectorAll('.research-grid, .edu-grid').forEach(el => {
+      el.style.gridTemplateColumns = mq.matches ? '1fr' : '1fr 1fr';
+    });
+  };
+  applyStack();
+  mq.addEventListener('change', applyStack);
 </script>
 </body>
 </html>
